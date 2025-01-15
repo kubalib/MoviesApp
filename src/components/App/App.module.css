@@ -1,0 +1,13 @@
+.movies {
+  position: relative;
+  margin: 23px 40px;
+}
+
+.alert {
+  position: fixed;
+  bottom: 10px;
+  z-index: 1000;
+  max-width: 400px;
+  font-weight: 600;
+}
+

@@ -1,9 +1,25 @@
 import { useState, useEffect } from "react";
 
-const useMovieFetch = (query) => {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+interface Movie {
+  id: number;
+  poster_path: string | null;
+  title: string;
+  release_date: string;
+  overview: string;
+  genres: number[];
+}
+
+interface TypeReturn {
+  // структуру возвращаемых данных из хука
+  movies: Movie[];
+  isLoading: boolean;
+  error: string | null;
+}
+
+const useMovieFetch = (query: string): TypeReturn => {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -23,7 +39,7 @@ const useMovieFetch = (query) => {
         const data = await response.json();
         setMovies(data.results);
       } catch (error) {
-        setError(error.message);
+        setError((error as Error).message);
       } finally {
         setIsLoading(false);
       }

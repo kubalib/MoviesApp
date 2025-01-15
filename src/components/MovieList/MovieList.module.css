@@ -1,0 +1,7 @@
+/* stylelint-disable-next-line selector-class-pattern */
+.movies__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 37px;
+  justify-content: center;
+}

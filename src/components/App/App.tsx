@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Alert } from "antd";
-
 import MovieList from "../MovieList";
 
+import styles from "./App.module.css";
+
 const App = () => {
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
 
   useEffect(() => {
     const updateOnlineStatus = () => setIsOnline(true);
@@ -19,18 +20,17 @@ const App = () => {
     };
   }, []);
 
-  if (!isOnline) {
-    return (
-      <Alert
-        message="Сеть недоступна. Проверьте подключение."
-        type="warning"
-        showIcon
-      />
-    );
-  }
-
   return (
-    <div className="movies">
+    <div className={styles.movies}>
+      {!isOnline && (
+        <Alert
+          className={styles.alert}
+          message="Нет интернет соединения."
+          description="Проверьте подключение и повторите попытку."
+          type="error"
+          showIcon
+        />
+      )}
       <MovieList />
     </div>
   );

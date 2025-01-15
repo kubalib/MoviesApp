@@ -21,8 +21,8 @@
     "arrow-body-style": "off",
     "react/jsx-filename-extension": "off",
     "react/require-default-props": "off",
-    "prefer-const": "warn",
-    "@typescript-eslint/no-unused-vars":"off"
+    "prefer-const": "warn"
+    // "@typescript-eslint/no-unused-vars":"off"
   },
 
   "settings": {

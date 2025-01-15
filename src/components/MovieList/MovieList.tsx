@@ -1,8 +1,9 @@
 import React from "react";
 import MovieCard from "../MovieCard";
-import useMovieFetch from "../hook/useMoviesFetch";
-
+import useMovieFetch from "../../hooks/useMoviesFetch";
 import { Spin, Alert } from "antd";
+
+import styles from "./MovieList.module.css";
 
 const MovieList = () => {
   const { movies, isLoading, error } = useMovieFetch("return");
@@ -16,7 +17,7 @@ const MovieList = () => {
   }
 
   return (
-    <div className="movies__list">
+    <div className={styles.movies__list}>
       {movies.map((movie) => (
         <MovieCard
           key={movie.id}
