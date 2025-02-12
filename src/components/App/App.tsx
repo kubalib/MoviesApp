@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Alert } from "antd";
+import { Alert, Input } from "antd";
+import { debounce } from "lodash";
 import MovieList from "../MovieList";
 
 import styles from "./App.module.css";
 
 const App = () => {
-  const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentpage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const updateOnlineStatus = () => setIsOnline(true);
@@ -20,6 +23,17 @@ const App = () => {
     };
   }, []);
 
+  const debouncedSearch = debounce((value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+  }, 1500);
+
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [debouncedSearch]);
+
   return (
     <div className={styles.movies}>
       {!isOnline && (
@@ -31,7 +45,16 @@ const App = () => {
           showIcon
         />
       )}
-      <MovieList />
+      <Input
+        className={styles.searchInput}
+        placeholder="Type to search..."
+        onChange={(e) => debouncedSearch(e.target.value)}
+      />
+      <MovieList
+        searchQuery={searchQuery}
+        currentPage={currentpage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };

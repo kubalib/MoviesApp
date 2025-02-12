@@ -14,20 +14,23 @@ interface TypeReturn {
   movies: Movie[];
   isLoading: boolean;
   error: string | null;
+  totalResults: number;
 }
 
-const useMovieFetch = (query: string): TypeReturn => {
+const useMovieFetch = (query: string, page: number): TypeReturn => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [totalResults, setTotalResults] = useState<number>(1);
 
   useEffect(() => {
     const fetchMovies = async () => {
       setIsLoading(true);
       const API_KEY = import.meta.env.VITE_API_KEY;
       try {
+        // console.log("Запрос:", query, "Страница:", page);
         const response = await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`,
+          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}&page=${page}`,
         );
 
         if (!response.ok) {
@@ -38,6 +41,7 @@ const useMovieFetch = (query: string): TypeReturn => {
 
         const data = await response.json();
         setMovies(data.results);
+        setTotalResults(data.total_results);
       } catch (error) {
         setError((error as Error).message);
       } finally {
@@ -45,9 +49,9 @@ const useMovieFetch = (query: string): TypeReturn => {
       }
     };
     fetchMovies();
-  }, [query]);
+  }, [query, page]);
 
-  return { movies, isLoading, error };
+  return { movies, isLoading, error, totalResults };
 };
 
 export default useMovieFetch;

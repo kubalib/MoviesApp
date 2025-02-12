@@ -1,7 +1,26 @@
-/* stylelint-disable-next-line selector-class-pattern */
-.movies__list {
+.list {
   display: flex;
   flex-wrap: wrap;
   gap: 37px;
   justify-content: center;
+}
+
+.alert {
+  max-width: 938px;
+  margin: auto;
+}
+
+.pagination {
+  justify-content: center;
+  margin-top: 37px;
+  padding-bottom: 17px;
+}
+
+:global(.ant-pagination-item-active) {
+  background-color: #1890ff !important;
+  color: white !important;
+}
+
+:global(.ant-pagination-item-active a) {
+  color: white !important;
 }

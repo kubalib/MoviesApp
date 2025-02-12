@@ -1,6 +1,7 @@
+/* stylelint-disable selector-class-pattern */
 .movies {
   position: relative;
-  margin: 23px 40px;
+  margin: 0 40px;
 }
 
 .alert {
@@ -11,3 +12,9 @@
   font-weight: 600;
 }
 
+.searchInput {
+  display: block;
+  margin: 86px auto 34px ;
+  max-width: 940px;
+  height: 40px;
+}

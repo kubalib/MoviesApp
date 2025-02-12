@@ -1,5 +1,4 @@
-/* stylelint-disable selector-class-pattern */
-.movies__item {
+.item {
   display: flex;
   width: 454px;
   height: 281px;
@@ -8,32 +7,34 @@
   overflow: hidden;
 }
 
-.movies__content {
+.content {
   margin-left: 20px;
+  margin-right: 20px;
 }
 
-.movies__image {
+.image {
   width: 100%;
   height: auto;
 }
 
-.movies__title {
+.title {
   font-size: 20px;
   font-weight: 400;
   margin-top: 12px;
 }
 
-.movies__releaseDate {
+/* stylelint-disable-next-line selector-class-pattern */
+.releaseDate {
   font-size: 12px;
   color: rgb(130 126 126);
 }
 
-.movies__genres {
+.genres {
   display: flex;
   gap: 8px;
 }
 
-.movies__genre {
+.genre {
   box-sizing: border-box;
   min-width: 46px;
   height: 20px;
@@ -46,14 +47,14 @@
   line-height: 16px;
 }
 
-.movies__descr {
+.descr {
   margin-top: 7px;
   width: 228px;
   font-size: 12px;
   font-weight: 400;
   line-height: 22px;
   text-align: left;
-  
+
   /* display: -webkit-box; /* Используем флексбокс для создания ограничений */
 
   /* -webkit-box-orient: vertical; /* Задаем ориентацию по вертикали */
@@ -63,6 +64,6 @@
   /* text-overflow: ellipsis; /* Добавляем троеточие (...) */
 
   /* -webkit-line-clamp: 3; */
-  
+
   /* font-size: clamp(12px, 2vw, 16px); /* Динамический размер текста */
 }

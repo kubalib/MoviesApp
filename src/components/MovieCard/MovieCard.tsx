@@ -7,9 +7,9 @@ import noPoster from "./no-poster-available-737x1024.jpg";
 interface MovieCardProps {
   img: string | null;
   title: string;
-  date: string;
-  genres: number[];
-  descr: string;
+  date?: string;
+  genres?: number[];
+  descr?: string;
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({
@@ -21,7 +21,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
 }) => {
   const genre = genres.map((genre, index) => {
     return (
-      <div key={index} className={styles.movies__genre}>
+      <div key={genre} className={styles.genre}>
         {genre}
       </div>
     );
@@ -30,27 +30,30 @@ const MovieCard: React.FC<MovieCardProps> = ({
   const trimString = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
       const lastIndexBeforeSpace = text.lastIndexOf(" ", maxLength);
-      return text.slice(0, lastIndexBeforeSpace) + "...";
+      return (
+        text.slice(
+          0,
+          lastIndexBeforeSpace > 0 ? lastIndexBeforeSpace : maxLength,
+        ) + "..."
+      );
     }
     return text;
   };
 
   return (
-    <div className={styles.movies__item}>
+    <div className={styles.item}>
       <img
-        className={styles.movies__img}
+        className={styles.image}
         src={img ? `https://image.tmdb.org/t/p/w500/${img}` : noPoster}
         alt={title}
       />
-      <div className={styles.movies__content}>
-        <h1 className={styles.movies__title}>
-          {title || "Title not available"}
-        </h1>
-        <p className={styles.movies__releaseDate}>
+      <div className={styles.content}>
+        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.releaseDate}>
           {date ? format(new Date(date), "MMMM d, yyyy") : "Date unknown"}
         </p>
-        <div className={styles.movies__genres}>{genre}</div>
-        <div className={styles.movies__descr}>
+        <div className={styles.genres}>{genre}</div>
+        <div className={styles.descr}>
           {descr ? trimString(descr, 185) : "Description not available"}
         </div>
       </div>
