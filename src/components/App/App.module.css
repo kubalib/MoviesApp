@@ -14,7 +14,13 @@
 
 .searchInput {
   display: block;
-  margin: 86px auto 34px ;
+  margin: 19px auto 34px ;
   max-width: 940px;
   height: 40px;
+}
+
+.tabs {
+  margin: 13px auto;
+  align-items: center;
+
 }

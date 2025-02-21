@@ -18,9 +18,9 @@
 
 :global(.ant-pagination-item-active) {
   background-color: #1890ff !important;
-  color: white !important;
+  color: #fff !important;
 }
 
 :global(.ant-pagination-item-active a) {
-  color: white !important;
+  color: #fff !important;
 }

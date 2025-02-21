@@ -9,16 +9,19 @@ interface MovieListProp {
   searchQuery: string;
   currentPage: number;
   setCurrentPage: (page: number) => void;
+  isRated?: boolean;
 }
 
 const MovieList: React.FC<MovieListProp> = ({
   searchQuery,
   currentPage,
   setCurrentPage,
+  isRated,
 }) => {
-  const { movies, isLoading, error, totalResults } = useMovieFetch(
+  const { movies, isLoading, error, setError, totalResults } = useMovieFetch(
     searchQuery || "return",
     currentPage,
+    isRated,
   );
 
   if (isLoading) {
@@ -46,10 +49,9 @@ const MovieList: React.FC<MovieListProp> = ({
         {movies.map((movie) => (
           <MovieCard
             key={movie.id}
-            img={movie.poster_path}
-            title={movie.title}
-            date={movie.release_date}
-            descr={movie.overview}
+            {...movie}
+            setError={setError}
+            isRated={isRated}
           />
         ))}
       </div>
