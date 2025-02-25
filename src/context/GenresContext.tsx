@@ -1,16 +1,15 @@
 import React, { createContext, useEffect, useState } from "react";
 
 interface Genre {
-  id: number;
-  name: string;
+  [key: number]: string;
 }
 
-export const GenresContext = createContext<Genre[]>([]);
+export const GenresContext = createContext<Genre>({});
 
 export const GenresProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [genres, setGenres] = useState<Genre[]>([]);
+  const [genres, setGenres] = useState<Genre>({});
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -21,8 +20,16 @@ export const GenresProvider: React.FC<{ children: React.ReactNode }> = ({
           `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`,
         );
         const data = await res.json();
-        //   console.log(data);
-        setGenres(data.genres);
+
+        const genresObj = data.genres.reduce(
+          (acc: Genre, genre: { id: number; name: string }) => {
+            acc[genre.id] = genre.name;
+            return acc;
+          },
+          {},
+        );
+
+        setGenres(genresObj);
       } catch (error) {
         console.error("Ошибка загрузки жанров", error);
       }

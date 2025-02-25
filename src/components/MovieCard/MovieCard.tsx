@@ -10,7 +10,6 @@ import { GenresContext } from "../../context/GenresContext";
 
 type MovieCardProps = Movie & {
   setError: (error: string | null) => void;
-  isRated?: boolean;
 };
 
 const MovieCard: React.FC<MovieCardProps> = ({
@@ -21,19 +20,20 @@ const MovieCard: React.FC<MovieCardProps> = ({
   genre_ids = [],
   overview,
   rating,
+  vote_average,
   setError,
-  isRated,
 }) => {
   const genres = useContext(GenresContext);
 
-  const genreNames = genre_ids.map((genreId) => {
-    const genre = genres.find((g) => g.id === genreId)?.name;
-    return genre ? (
-      <div key={genre} className={styles.genre}>
-        {genre}
-      </div>
-    ) : null;
-  });
+  const genreNames = genre_ids
+    .map((genreId) => [genreId, genres[genreId]])
+    .map(([id, name]) => {
+      return (
+        <div key={id} className={styles.genresListItem}>
+          {name}
+        </div>
+      );
+    });
 
   const trimString = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
@@ -92,33 +92,41 @@ const MovieCard: React.FC<MovieCardProps> = ({
         />
       </div>
       <div className={styles.content}>
-        <div className={styles.wrapper}>
-          <h1 className={styles.title}>{title}</h1>
-          {isRated && (
-            <div
-              className={styles.ratingBlock}
-              style={{ borderColor: getColorRating(rating) }}
-            >
-              {rating}
+        <div className={styles.mobileSpecificationWrapper}>
+          <img
+            className={styles.imageMobile}
+            src={
+              poster_path
+                ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+                : noPoster
+            }
+            alt={title}
+          />
+
+          <div className={styles.container}>
+            <div className={styles.wrapperRatingBlock}>
+              <h2 className={styles.title}>{trimString(title, 35)}</h2>
+
+              <div
+                className={styles.ratingBlock}
+                style={{ borderColor: getColorRating(vote_average) }}
+              >
+                {vote_average.toFixed(1)}
+              </div>
             </div>
-          )}
+
+            <p className={styles.releaseDate}>
+              {release_date
+                ? format(new Date(release_date), "MMMM d, yyyy")
+                : "Date unknown"}
+            </p>
+            <div className={styles.genresList}>{genreNames}</div>
+          </div>
         </div>
 
-        <p className={styles.releaseDate}>
-          {release_date
-            ? format(new Date(release_date), "MMMM d, yyyy")
-            : "Date unknown"}
+        <p className={styles.descr}>
+          {overview ? trimString(overview, 150) : "Description not available"}
         </p>
-        <div className={styles.genres}>
-          {genreNames.length > 0 ? (
-            genreNames
-          ) : (
-            <div className={styles.genre}> unknown</div>
-          )}
-        </div>
-        <div className={styles.descr}>
-          {overview ? trimString(overview, 185) : "Description not available"}
-        </div>
         <div>
           <Rate
             className={styles.rate}

@@ -1,29 +1,28 @@
+/* stylelint-disable selector-class-pattern */
 .item {
   display: flex;
   max-width: 454px;
-  height: 281px;
-  /* flex-basis: 50%; */
+  min-height: 281px;
   /* stylelint-disable-next-line color-function-notation */
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 15%);
-  overflow: hidden;
 }
 
 .content {
+  position: relative;
   margin-top: 12px;
   display: flex;
   flex-direction: column;
-  gap: 7px;
   margin-left: 20px;
   margin-right: 12px;
 }
 
-.wrapper {
+.wrapperRatingBlock {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .image {
-  /* flex-shrink: 0; */
   width: 100%;
   height: auto;
 }
@@ -32,22 +31,25 @@
   max-width: 80%;
   font-size: 20px;
   font-weight: 400;
+  line-height: 1;
   margin: 0;
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
+
+
 .releaseDate {
-  margin: 0;
+  margin: 7px 0;
   font-size: 12px;
   color: rgb(130 126 126);
 }
 
-.genres {
+.genresList {
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 5px 8px;
 }
 
-.genre {
+.genresListItem {
   box-sizing: border-box;
   min-width: 46px;
   padding: 2px 5px;
@@ -61,6 +63,7 @@
 }
 
 .descr {
+  margin: 7px 0;
   width: 228px;
   font-size: 12px;
   font-weight: 400;
@@ -80,15 +83,71 @@
   /* font-size: clamp(12px, 2vw, 16px); /* Динамический размер текста */
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
 .ratingBlock {
-  width: 30px;
-  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
   border: 3px solid;
   border-radius: 50%;
-  text-align: center;
 }
 
 .rate {
+  position: absolute;
+  bottom: 20px;
   font-size: 15px;
+}
+
+.imageMobile {
+  display: none;
+}
+
+@media (width <= 430px) {
+  .item {
+    min-height: max-content;
+  }
+
+  .content {
+    margin-top: 4px;
+    margin-left: 10px;
+    align-items: flex-end;
+  }
+
+  .mobileSpecificationWrapper {
+    display: flex;
+    align-items: flex-start;
+    column-gap: 13px;
+  }
+
+  .container {
+    flex-basis: 80%;
+  }
+
+  .image {
+    display: none;
+  }
+
+  .imageMobile {
+    display: block;
+    width: 20%;
+  }
+
+  .genresList {
+    gap: 6px;
+  }
+
+  .descr {
+    width: auto;
+  }
+
+  .ratingBlock {
+    border: 2px solid;
+  }
+
+  .rate {
+    position: relative;
+    bottom: 0;
+    margin: 10px 0 12px;
+  }
 }

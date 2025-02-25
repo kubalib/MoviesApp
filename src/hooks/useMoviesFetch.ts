@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { TabsEnum } from "../components/App/App";
 
 export interface Movie {
   id: number;
@@ -8,6 +9,7 @@ export interface Movie {
   overview: string;
   genre_ids?: number[];
   rating: number;
+  vote_average: number;
 }
 
 interface TypeReturn {
@@ -22,7 +24,7 @@ interface TypeReturn {
 const useMovieFetch = (
   query: string,
   page: number,
-  isRated?: boolean,
+  currentTab: TabsEnum,
 ): TypeReturn => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -35,7 +37,7 @@ const useMovieFetch = (
       const API_KEY = import.meta.env.VITE_API_KEY;
       let url = `https://api.themoviedb.org/3/`;
 
-      if (isRated) {
+      if (currentTab === TabsEnum.RATED) {
         const guestSessionId = localStorage.getItem("guest_session_id");
         if (guestSessionId) {
           url += `account/21737321/rated/movies?`;
@@ -72,7 +74,7 @@ const useMovieFetch = (
       }
     };
     fetchMovies();
-  }, [query, page, isRated]);
+  }, [query, page, currentTab]);
 
   return { movies, isLoading, error, setError, totalResults };
 };

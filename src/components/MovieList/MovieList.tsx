@@ -4,24 +4,26 @@ import useMovieFetch from "../../hooks/useMoviesFetch";
 import { Spin, Alert, Pagination } from "antd";
 
 import styles from "./MovieList.module.css";
+import { TabsEnum } from "../App/App";
 
 interface MovieListProp {
   searchQuery: string;
   currentPage: number;
   setCurrentPage: (page: number) => void;
   isRated?: boolean;
+  currentTab: TabsEnum;
 }
 
 const MovieList: React.FC<MovieListProp> = ({
   searchQuery,
   currentPage,
   setCurrentPage,
-  isRated,
+  currentTab,
 }) => {
   const { movies, isLoading, error, setError, totalResults } = useMovieFetch(
-    searchQuery || "return",
+    searchQuery || "world",
     currentPage,
-    isRated,
+    currentTab,
   );
 
   if (isLoading) {
@@ -47,12 +49,7 @@ const MovieList: React.FC<MovieListProp> = ({
     <>
       <div className={styles.list}>
         {movies.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            {...movie}
-            setError={setError}
-            isRated={isRated}
-          />
+          <MovieCard key={movie.id} {...movie} setError={setError} />
         ))}
       </div>
       <Pagination

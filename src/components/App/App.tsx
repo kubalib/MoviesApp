@@ -8,12 +8,17 @@ import styles from "./App.module.css";
 
 const { TabPane } = Tabs;
 
+export enum TabsEnum {
+  SEARCH = "SEARCH",
+  RATED = "RATED",
+}
+
 const App = () => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentpage, setCurrentPage] = useState(1);
   const [errorSession, setErrorSession] = useState<string | null>(null);
-  const [currentTab, setCurrentTab] = useState("search");
+  const [currentTab, setCurrentTab] = useState<TabsEnum>(TabsEnum.SEARCH);
 
   const createGuestSession = async () => {
     const API_KEY = import.meta.env.VITE_API_KEY;
@@ -65,7 +70,7 @@ const App = () => {
   }, [debouncedSearch]);
 
   const onChangeTab = (key: string) => {
-    setCurrentTab(key);
+    setCurrentTab(key as TabsEnum);
   };
 
   return (
@@ -94,22 +99,23 @@ const App = () => {
           activeKey={currentTab}
           onChange={onChangeTab}
         >
-          <TabPane key="search" tab="Search">
+          <TabPane key={TabsEnum.SEARCH} tab="Search">
             <Input
               className={styles.searchInput}
               placeholder="Type to search..."
               onChange={debouncedSearch}
             />
             <MovieList
+              currentTab={currentTab}
               searchQuery={searchQuery}
               currentPage={currentpage}
               setCurrentPage={setCurrentPage}
             />
           </TabPane>
-          <TabPane key="rated" tab="Rated">
+          <TabPane key={TabsEnum.RATED} tab="Rated">
             <MovieList
+              currentTab={currentTab}
               searchQuery=""
-              isRated={true}
               currentPage={currentpage}
               setCurrentPage={setCurrentPage}
             />
