@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Alert, Input, Tabs } from "antd";
 import { debounce } from "lodash";
 import MovieList from "../MovieList";

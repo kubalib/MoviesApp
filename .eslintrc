@@ -12,6 +12,7 @@
   ],
   "plugins": ["prettier", "@typescript-eslint", "react", "react-hooks"],
   "rules": {
+    "react/react-in-jsx-scope": "off",
     "prettier/prettier": "warn",
     "no-console": "warn",
     "max-len": ["error", 150, { "ignoreUrls": true }],

@@ -40,7 +40,7 @@ const useMovieFetch = (
       if (currentTab === TabsEnum.RATED) {
         const guestSessionId = localStorage.getItem("guest_session_id");
         if (guestSessionId) {
-          url += `account/21737321/rated/movies?`;
+          url += `guest_session/${guestSessionId}/rated/movies?api_key=${API_KEY}`;
         } else {
           setError("Не удалось получить информацию о сессии.");
           return;
@@ -54,7 +54,6 @@ const useMovieFetch = (
           method: "GET",
           headers: {
             accept: "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`,
           },
         });
 

@@ -26,3 +26,5 @@ INFO.js
 *.njsproj
 *.sln
 *.sw?
+
+.vercel

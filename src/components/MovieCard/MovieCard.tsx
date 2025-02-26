@@ -49,9 +49,10 @@ const MovieCard: React.FC<MovieCardProps> = ({
   };
 
   const onRateMovie = async (value: number) => {
+    const guestSessionId = localStorage.getItem("guest_session_id");
     try {
       const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}/rating`,
+        `https://api.themoviedb.org/3/movie/${id}/rating?guest_session_id=${guestSessionId}`,
         {
           method: "POST",
           headers: {
@@ -125,7 +126,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
         </div>
 
         <p className={styles.descr}>
-          {overview ? trimString(overview, 150) : "Description not available"}
+          {overview ? trimString(overview, 130) : "Description not available"}
         </p>
         <div>
           <Rate
