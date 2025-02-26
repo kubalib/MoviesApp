@@ -45,7 +45,8 @@ const useMovieFetch = (
           setError("Не удалось получить информацию о сессии.");
           return;
         }
-      } else {
+      } else if (currentTab === TabsEnum.SEARCH) {
+        setError(null);
         url += `search/movie?api_key=${API_KEY}&query=${query}&page=${page}`;
       }
 

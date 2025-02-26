@@ -4,7 +4,7 @@
 
 ## 🚀 Деплой на Vercel
 Приложение доступно по ссылке:  
-[🔗 Перейти в Movies App](https://movies-q02jvaxkc-alinas-projects-6df5d57d.vercel.app)
+[🔗 Перейти в Movies App](https://movies-3e1rxy89o-alinas-projects-6df5d57d.vercel.app/)
 
 ## 📌 Функционал
 - Поиск фильмов
